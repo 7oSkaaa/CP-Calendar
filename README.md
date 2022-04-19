@@ -3,15 +3,15 @@
 ## Requirements
 
 ```bash
-  pip install --upgrade google-api-python-client google-auth-httplib2 google-auth-oauthlib
+    pip install --upgrade google-api-python-client google-auth-httplib2 google-auth-oauthlib
 ```
 
 ```bash
-pip install DateTime
+    pip install DateTime
 ```
 
 ```bash
-pip install python-dotenv
+    pip install python-dotenv
 ```
 
 ## Choose sites you want to get they contests
