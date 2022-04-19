@@ -2,19 +2,9 @@ from datetime import datetime
 import requests
 import os
 from dotenv import load_dotenv
+from Colors import bcolors
 
 load_dotenv()
-
-#Colors to use
-red = '\033[38;5;196m'
-green = '\033[38;5;40m'
-blue = '\033[34m'
-gold = '\033[38;5;220m'
-white = '\33[37m'
-magenta = '\033[35m'
-brown = '\033[38;5;94m'
-bold = '\033[01m'
-reset = '\033[0m'
 
 Sites = [
     {'platfrom': 'leetcode', 'api_url': 'https://kontests.net/api/v1/leet_code'},
@@ -26,12 +16,12 @@ Sites = [
 ]
 
 colors = {
-    'leetcode': gold,
-    'codeforces': blue,
-    'atcoder': white,
-    'hackerrank': green,
-    'kickstart': red,
-    'codechef': brown,
+    'leetcode': bcolors.gold,
+    'codeforces': bcolors.blue,
+    'atcoder': bcolors.white,
+    'hackerrank': bcolors.green,
+    'kickstart': bcolors.red,
+    'codechef': bcolors.brown,
 }
 
 
@@ -65,7 +55,7 @@ def get_contests():
         make_contest_id(site_contest, site['platfrom'])
         if os.getenv(site['platfrom']).lower() != 'true':
             continue
-        print(f"{colors[site['platfrom']]}Contests from {site['platfrom']} fetched successfully 💯{reset}")
+        print(f"{colors[site['platfrom']]}Contests from {site['platfrom']} fetched successfully 💯{bcolors.reset}")
         for contest in site_contest:
             contest = convert_time(contest)
             contests.append(contest)

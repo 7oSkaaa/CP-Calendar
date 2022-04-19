@@ -5,16 +5,7 @@ from google.oauth2.credentials import Credentials
 from google_auth_oauthlib.flow import InstalledAppFlow
 from googleapiclient.discovery import build
 from googleapiclient.errors import HttpError
-
-#Colors to use
-red = '\033[38;5;196m'
-green = '\033[38;5;40m'
-blue = '\033[34m'
-gold = '\033[38;5;220m'
-white = '\33[37m'
-magenta = '\033[35m'
-bold = '\033[01m'
-reset = '\033[0m'
+from Colors import bcolors
 
 def make_event(contest):
     # event body to use
@@ -68,10 +59,10 @@ def make_events(contests):
             service = build('calendar', 'v3', credentials=creds)
             # Call the Calendar API
             service.events().insert(calendarId='primary', body=event).execute()
-            print(f"{green}Event created: {contest['name']} ✅{reset}")
+            print(f"{bcolors.green}Event created: {contest['name']} ✅{bcolors.reset}")
         except HttpError as error:
             # if the event already created just update it
             if  error.resp.status == 409:
                 service.events().update(calendarId='primary', eventId=contest['ID'], body=event).execute()
-                print(f"{gold}Event updated: {contest['name']} ✅{reset}")
+                print(f"{bcolors.gold}Event updated: {contest['name']} ✅{bcolors.reset}")
                 
