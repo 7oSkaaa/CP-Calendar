@@ -73,5 +73,5 @@ def make_events(contests):
             # if the event already created just update it
             if  error.resp.status == 409:
                 service.events().update(calendarId='primary', eventId=contest['ID'], body=event).execute()
-                print(f"{gold}Event updated: {contest['name']} at {contest['start_time']} ✅{reset}")
+                print(f"{gold}Event updated: {contest['name']} ✅{reset}")
                 
