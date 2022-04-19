@@ -1,5 +1,7 @@
 # CP-Calendar
 
+It's just a simple script to add all contest from site to your `Google Calendar` and make two reminder for them one before the contest one day, and another before half an hour, the event on `Google Calendar` have the registration link of the contest.
+
 ## Requirements
 
 ```bash
