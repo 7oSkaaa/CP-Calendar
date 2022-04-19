@@ -13,3 +13,7 @@ pip install DateTime
 ```bash
 pip install python-dotenv
 ```
+
+## Choose sites you want to get they contests
+
+from `.env` file you can write True of False on the right of each site
