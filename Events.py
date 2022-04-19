@@ -68,7 +68,7 @@ def make_events(contests):
             service = build('calendar', 'v3', credentials=creds)
             # Call the Calendar API
             service.events().insert(calendarId='primary', body=event).execute()
-            print(f"{green}Event created: {contest['name']} at {contest['start_time']} ✅{reset}")
+            print(f"{green}Event created: {contest['name']} ✅{reset}")
         except HttpError as error:
             # if the event already created just update it
             if  error.resp.status == 409:
