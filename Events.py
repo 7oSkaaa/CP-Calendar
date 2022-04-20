@@ -39,6 +39,11 @@ def make_events(contests):
           'https://www.googleapis.com/auth/calendar.events.readonly',  
           'https://www.googleapis.com/auth/calendar.readonly'
     ]
+    
+    #Get the directory of current folder
+    directory = os.path.dirname(os.path.realpath(__file__))
+    os.chdir(directory)
+    
     if os.path.exists('token.json'):
         creds = Credentials.from_authorized_user_file('token.json', SCOPES)
     # If there are no (valid) credentials available, let the user log in.
