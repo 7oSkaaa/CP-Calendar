@@ -5,16 +5,17 @@ It's just a simple script to add all contest from site to your `Google Calendar`
 ## Requirements
 
 ```bash
-    pip install --upgrade google-api-python-client google-auth-httplib2 google-auth-oauthlib
+# Linux User
+sudo apt install python-pip
 ```
 
-```bash
-    pip install DateTime
-```
+for windows users see how to install pip to your device from [here](https://www.activestate.com/resources/quick-reads/how-to-install-pip-on-windows/)
+
 
 ```bash
-    pip install python-dotenv
+pip install --upgrade google-api-python-client google-auth-httplib2 google-auth-oauthlib DateTime python-dotenv
 ```
+
 
 ## Choose sites you want to get they contests
 
