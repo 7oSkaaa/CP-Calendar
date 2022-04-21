@@ -2,7 +2,7 @@ from datetime import datetime
 import requests
 import os
 from dotenv import load_dotenv
-from helpers.Colors import bcolors
+from helpers.colors import bcolors
 
 load_dotenv()
 

@@ -1,6 +1,6 @@
 from services.events import make_events
 from services.contests import get_contests
-from helpers.Colors import bcolors
+from helpers.colors import bcolors
 
 def main():
     
