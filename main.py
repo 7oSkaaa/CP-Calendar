@@ -1,6 +1,6 @@
-from Events import make_events
-from Contests import get_contests
-from Colors import bcolors
+from services.Events import make_events
+from services.Contests import get_contests
+from helpers.Colors import bcolors
 
 def main():
     
