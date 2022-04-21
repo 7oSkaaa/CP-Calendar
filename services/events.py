@@ -1,5 +1,6 @@
 from __future__ import print_function
 import os
+from black import err
 from google.auth.transport.requests import Request
 from google.oauth2.credentials import Credentials
 from google_auth_oauthlib.flow import InstalledAppFlow
@@ -31,10 +32,10 @@ def make_event(contest):
     }
     return event
 
-
-def make_events(contests):
+def get_credentials():
     creds = None
-    SCOPES = ['https://www.googleapis.com/auth/calendar', 
+    SCOPES = [
+          'https://www.googleapis.com/auth/calendar', 
           'https://www.googleapis.com/auth/calendar.events', 
           'https://www.googleapis.com/auth/calendar.events.readonly',  
           'https://www.googleapis.com/auth/calendar.readonly'
@@ -57,6 +58,12 @@ def make_events(contests):
         # Save the credentials for the next run
         with open('token.json', 'w') as token:
             token.write(creds.to_json())
+    return creds
+
+
+def make_events(contests):
+    
+    creds = get_credentials()
     
     for contest in contests:
         event = make_event(contest)
@@ -66,8 +73,11 @@ def make_events(contests):
             service.events().insert(calendarId='primary', body=event).execute()
             print(f"{bcolors.green}Event created: {contest['name']} ✅{bcolors.reset}")
         except HttpError as error:
-            # if the event already created just update it
             if  error.resp.status == 409:
+                # if the event already created just update it
                 service.events().update(calendarId='primary', eventId=contest['ID'], body=event).execute()
                 print(f"{bcolors.gold}Event updated: {contest['name']} ✅{bcolors.reset}")
-                
+            else:
+                # Print error messages
+                for e in error.error_details:  
+                    print(f"{bcolors.red}{e['message']} at {contest['name']} ❌{bcolors.reset}")

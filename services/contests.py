@@ -3,16 +3,18 @@ import requests
 import os
 from dotenv import load_dotenv
 from helpers.colors import bcolors
+import re
 
 load_dotenv()
 
 Sites = [
-    {'platfrom': 'leetcode', 'api_url': 'https://kontests.net/api/v1/leet_code'},
-    {'platfrom': 'codeforces', 'api_url': 'https://kontests.net/api/v1/codeforces'},
-    {'platfrom': 'atcoder', 'api_url': 'https://kontests.net/api/v1/at_coder'},
-    {'platfrom': 'codechef', 'api_url': 'https://kontests.net/api/v1/code_chef'},
-    {'platfrom': 'hackerrank', 'api_url': 'https://kontests.net/api/v1/hacker_rank'},
-    {'platfrom': 'kickstart', 'api_url': 'https://kontests.net/api/v1/kick_start'}
+    {'platform': 'leetcode', 'api_url': 'https://kontests.net/api/v1/leet_code'},
+    {'platform': 'codeforces', 'api_url': 'https://kontests.net/api/v1/codeforces'},
+    {'platform': 'atcoder', 'api_url': 'https://kontests.net/api/v1/at_coder'},
+    {'platform': 'codechef', 'api_url': 'https://kontests.net/api/v1/code_chef'},
+    {'platform': 'topcoder', 'api_url': 'https://kontests.net/api/v1/top_coder'},
+    {'platform': 'hackerrank', 'api_url': 'https://kontests.net/api/v1/hacker_rank'},
+    {'platform': 'kickstart', 'api_url': 'https://kontests.net/api/v1/kick_start'},
 ]
 
 colors = {
@@ -22,6 +24,7 @@ colors = {
     'hackerrank': bcolors.green,
     'kickstart': bcolors.red,
     'codechef': bcolors.brown,
+    'topcoder': bcolors.magenta,
 }
 
 
@@ -35,7 +38,11 @@ def convert_time(contest):
 
 def make_contest_id(contests, platform):
     for contest in contests:
-        contest['ID'] = platform + contest['url'].split('/')[-1].lower()
+        if platform == 'leetcode':
+            contest['ID'] = contest['name'].replace(' ', '').lower()
+        else:
+            contest['ID'] = platform + contest['url'].split('/')[-1].lower()
+        contest['ID'] = re.sub('[wxyz]+', 'rep', contest['ID'])
         if len(contest['duration']) > 5:
             contest['end_time'] = contest['start_time']
 
@@ -52,10 +59,10 @@ def get_contests():
     contests = []
     for site in Sites:
         site_contest = get_contests_from_api(site['api_url']).json()
-        make_contest_id(site_contest, site['platfrom'])
-        if os.getenv(site['platfrom']).lower() != 'true':
+        make_contest_id(site_contest, site['platform'])
+        if os.getenv(site['platform']).lower() != 'true':
             continue
-        print(f"{colors[site['platfrom']]}Contests from {site['platfrom']} fetched successfully 💯{bcolors.reset}")
+        print(f"{colors[site['platform']]}Contests from {site['platform']} fetched successfully 💯{bcolors.reset}")
         for contest in site_contest:
             contest = convert_time(contest)
             contests.append(contest)
