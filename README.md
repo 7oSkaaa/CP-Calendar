@@ -21,7 +21,7 @@ pip install --upgrade -r requirements.txt
 
 from `.env` file you can write True of False on the right of each site
 
-## Replace `credentials.json` with your `credentials` information
+## Replace the information in `credentials.json` with your `credentials` information in `services` folder
 
 See first `11` minutes in this [video](https://www.youtube.com/watch?v=eRHvfNKcwMQ&t=1629s&ab_channel=Cndro) to know how to get your credentials information
 
