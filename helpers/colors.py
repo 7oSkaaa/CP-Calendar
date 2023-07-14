@@ -7,4 +7,6 @@ class bcolors:
     magenta = '\033[35m'
     brown = '\033[38;5;94m'
     bold = '\033[01m'
+    cyan = '\033[36m'
+    purple = '\033[38;5;165m'
     reset = '\033[0m'
