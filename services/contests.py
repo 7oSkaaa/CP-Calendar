@@ -1,12 +1,22 @@
 import os
-import re
 
+import base64
 import requests
 from dotenv import load_dotenv
 
 from helpers.colors import bcolors
 
 load_dotenv()
+
+
+def encode_base32(input_string):
+    alphabet = "0123456789abcdefghijklmnopqrstuv"
+    base32_bytes = base64.b32encode(input_string.encode())
+    encoded_string = base32_bytes.decode().translate(
+        str.maketrans("ABCDEFGHIJKLMNOPQRSTUVWXYZ234567", alphabet)
+    )
+    return encoded_string.strip("=")
+
 
 Sites = [
     {"platform": "leetcode", "api_url": "https://kontests.net/api/v1/leet_code"},
@@ -26,7 +36,7 @@ colors = {
     "kickstart": bcolors.red,
     "codechef": bcolors.brown,
     "topcoder": bcolors.magenta,
-    "codeforcesGym": bcolors.cyan
+    "codeforcesGym": bcolors.cyan,
 }
 
 
@@ -40,11 +50,7 @@ def convert_time(contest):
 
 def make_contest_id(contests, platform):
     for contest in contests:
-        if platform == "leetcode":
-            contest["ID"] = contest["name"].replace(" ", "").lower()
-        else:
-            contest["ID"] = platform + contest["url"].split("/")[-1].lower()
-        contest["ID"] = re.sub("[wxyz]+", "rep", contest["ID"])
+        contest["ID"] = encode_base32(contest["url"])
         if len(contest["duration"]) > 5:
             contest["end_time"] = contest["start_time"]
 
@@ -64,7 +70,6 @@ def get_contests():
         make_contest_id(site_contest, site["platform"])
         if os.getenv(site["platform"]).lower() != "true":
             continue
-        print(site)
         print(
             f"{colors[site['platform']]}Contests from {site['platform']} fetched successfully 💯{bcolors.reset}"
         )
