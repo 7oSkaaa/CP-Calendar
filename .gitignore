@@ -136,7 +136,7 @@ token.json
 .vscode/
 
 # env files from all folders
-**/.env
+.env
 
 # IDE files
 .idea/
